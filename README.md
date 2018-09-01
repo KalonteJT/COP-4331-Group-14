@@ -42,12 +42,11 @@ easy as picking a place and time.
 The Competition
 -----------------------------
 
-We hear what you're thinking. Why not use Tinder or Bumble? While it's true
-that these apps let you meet new people, they also focus on their user
-experience around studying people's perceived looks or personality and
-tentatively building relationships. Queue-Up (QUP), however is focused around
-real-time events and casual meetups. No pressure. No strings attached. Meet new
-people when you want, hang with your friends, or mix it up. 
+We hear what you're thinking. Why not use Tinder or Bumble? While it's true that
+these apps let you meet new people, they have focus on their user experience
+around studying people's perceived looks or personality and tentatively building
+relationships. Queue-Up (QUP), however is focused around real-time events and
+casual meetups. No pressure. No strings attached.
 
 
 The Design
