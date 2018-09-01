@@ -1,9 +1,6 @@
 Queue Up 
 ========================
 
-README Draft - Alpha  0.1
-
-
 Overview 
 -----------------------------
 
@@ -24,18 +21,18 @@ The Team
 What is Queue-Up? (QUP) 
 -----------------------------
 
-Queue-Up (QUP) is an is a real-time event planner. An app built for college
+Queue-Up (QUP) is a real-time event planner. An app built for college
 students, working adults, or anyone looking to meet new people and try new
 things. With a few taps you can set a meet point, a time, and ping as many or as
 few of your friends as you desire. None of your friends available? Join a
 "queue" and attend a local event. Or make one yourself! You can do what you want, 
-when you want. With minimal planning and coordination. 
+when you want. With minimal required planning and coordination. 
 
 
 Who is Queue-Up (QUP) For?
 -----------------------------
 
-Have you ever wanted to go to catch a movie, go go-karting, or checkout that new
+Have you ever decided to go to catch a movie, go go-karting, or checkout that new
 restaurant, only to realize you had no one to go with? Then Queue-up (QUP) is
 for you. A single glance at the app's dashboard is enough to see all of the
 local meetup spots and ongoing events. And getting a group together is as
