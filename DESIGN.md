@@ -4,17 +4,17 @@ Sprint #1 - Design Draft
 Proposed Stack
 --------------------------------
 
-###Language(s)
+### Language(s)
    - JavaScript
 
-###Tools 
+### Tools 
    - React.JS     (JS)     -     Web (Splash Page)
    - React Native (JS)     -     Mobile (Android/iOS)
    - Node.js      (JS)     -     Web Services ()
    - MongoDB      (JSON)   -     DB
    
 
-###TODO 
+### TODO 
    - Look into oAuth
    - Look into JS
    - Look into [https://mlab.com/aws/](MLAB) for MongoDB
@@ -24,14 +24,14 @@ Proposed Stack
 Roles
 ---------------------------------
 
-   1. *Product Owner:* [Unknown]
-   2. *Scrum Master:* [Unknown]
-   3. *Development Team:* [Unknown] [Unknown] [Unknown]
+   1. **Product Owner:** [Unknown]
+   2. **Scrum Master:** [Unknown]
+   3. **Development Team:** [Unknown] [Unknown] [Unknown]
 
 User Stories
 ---------------------------------
 
-*UI*
+**UI**
    1. As a USER I want a Page/Screen that lists the "events/queues near me"
       - Validation: When I open the app a screen appears listing open events/queues
 
