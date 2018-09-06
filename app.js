@@ -10,7 +10,7 @@ var prompt = require('prompt');
 
   //
   // Get two properties from the user: username and email
-  //
+  console.log("Enter a name and time for your event");
   prompt.get(['name', 'time'], function (err, result) {
     //
     // Log the results.
