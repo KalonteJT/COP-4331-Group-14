@@ -43,6 +43,9 @@ User Stories
 
    4. As a USER I want to be able to see when people have joined the queue that I'm in
       - Validation: I can see how many others are in my queue
+      
+   5. As a USER I want to be able to chat with people who have joined the queue that I'm in
+      - Validation: So I can communicate easily with everyone in the queue
 
 
 Requirements / Tasks
