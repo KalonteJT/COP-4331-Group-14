@@ -1,6 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native';
+
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
+
+type Props = {};
 
 export default class App extends React.Component {
 	databaseUpdate(){
@@ -51,20 +60,55 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>This shit is so cool!!</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Button onPress={this.databaseUpdate} title="Press me"> </Button>
+      <View style = {[styles.layoutContainer, styles.topBanner]}></View>
+                    <Text style={styles.welcomeText}>Welcome to QUp!></Text>
+                    <Button onPress={this.databaseUpdate} title="Press me" />
+      <View style = {[styles.layoutContainer, styles.windowBox]}></View>
       </View>
           );
   }
 }
 
+
+      
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    //backgroundColor: '#F5FCFF',
   },
+  //Ensures a 1:1 Flex Ratio w/ container
+  layoutContainer: {
+    flex: 1,
+  },
+  //Flex Container for the Top Banner
+  topBanner: {
+    flex: 1,
+    backgroundColor: '#FC4AAB',
+  },
+  //Flex Container for the rest of the screen
+  windowBox: {
+    flex: 7,
+    backgroundColor: '#F7F2F5',
+    textAlign: 'center',
+    color: 'black',
+  },
+  welcomeText: {
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 24,
+    backgroundColor: '#F7F2F5',
+  },
+  /*welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },*/
 });

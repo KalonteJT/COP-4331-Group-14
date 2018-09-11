@@ -43,6 +43,12 @@ User Stories
 
    4. As a USER I want to be able to see when people have joined the queue that I'm in
       - Validation: I can see how many others are in my queue
+      
+   5. As a USER I want to be able to chat with people who have joined the queue that I'm in
+      - Validation: I can communicate with everyone in the queue
+
+**Backend**
+   1. As a USER I want to be able to 
 
 
 Requirements / Tasks
@@ -55,4 +61,6 @@ Requirements / Tasks
 
    3. Create preliminary UI 
       - Show List of Events (Refresh on pull-down)
-      - Create Event (and Push to DB)
+      - Create Event (and Push to DB):w
+
+
