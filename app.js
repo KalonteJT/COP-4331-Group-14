@@ -39,4 +39,3 @@ var prompt = require('prompt');
   db1.close();	});
 	
 });
-  });
