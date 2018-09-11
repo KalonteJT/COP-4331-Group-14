@@ -60,8 +60,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <View style = {[styles.layoutContainer, styles.topBanner]}></View>
+      <View style = {[styles.layoutContainer, styles.topBanner]}>
                     <Text style={styles.welcomeText}>Welcome to QUp!></Text>
+                    </View>
                     <Button onPress={this.databaseUpdate} title="Press me" />
       <View style = {[styles.layoutContainer, styles.windowBox]}></View>
       </View>
@@ -91,15 +92,16 @@ const styles = StyleSheet.create({
   //Flex Container for the rest of the screen
   windowBox: {
     flex: 7,
-    backgroundColor: '#F7F2F5',
-    textAlign: 'center',
-    color: 'black',
+    backgroundColor: '#3F3F3F',
   },
   welcomeText: {
     textAlign: 'center',
-    color: 'black',
-    fontSize: 24,
-    backgroundColor: '#F7F2F5',
+    color: 'white',
+    fontSize: 32,
+    fontStyle: 'italic',
+    //fontStyle: 'bold',
+    backgroundColor: '#FC4AAB',
+    marginTop: 25,
   },
   /*welcome: {
     fontSize: 20,
