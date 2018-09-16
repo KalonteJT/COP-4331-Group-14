@@ -8,6 +8,12 @@ Features, usage, installation instructions, etc will be [summarized
 here](https://github.com/KalonteJT/COP-4331-Group-14) at a later date. 
 
 
+**Build Instructions**
+-----------------------------
+Please follow the instructions here for setting up the environment
+to run Queue Up. https://github.com/KalonteJT/COP-4331-Group-14/blob/master/Build_Instructions.md
+
+
 The Team
 -----------------------------
 
