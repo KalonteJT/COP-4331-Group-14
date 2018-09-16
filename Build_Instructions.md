@@ -10,11 +10,16 @@ Note: If using a Windows or Linux OS you must use the Android emulator as XCode 
 Note: You will also need Java SDK 8 in order to run this app on an android emulator.
 After following through the tutorial on setting up the environment necessary to run the app, please follow these instructions once you have opened a terminal window.
 
-	1. If you have not already installed command line git, please go to the following site for instructions once installing git "https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
-	2. After installing git clone the repository from our groups github by typing "git clone https://github.com/KalonteJT/COP-4331-Group-14.git" This will create a folder with our repository's files in your current directory
-	3. After downloading our repository, navigate to the repository folder by typing "cd COP-4331-Group-14". Then navigate to the QUp folder by typing "cd QUp" in the terminal window
-	4. Once in the queue up folder you will need to run the following command "npm install" to install the necessary
-	   node modules.
-	5. After installing the node modules, you are ready to run the app and can do so by typing the following command
-		- If you selected iOS as target OS for your emulator please type "react-native run-ios" to launch the app and emulator
-		- If you selected Android as the target OS for your emulator please type "react-native run-android" to launch the app and emulator. Note: For the Android app you will need to have an android emulator running before typing the command above for it to load the app on the emulator.
+1. If you have not already installed command line git, please go to the following site for instructions once installing git "https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
+
+2. After installing git clone the repository from our groups github by typing<br /> "git clone https://github.com/KalonteJT/COP-4331-Group-14.git" This will create a folder with our repository's files in your current directory
+
+3. After downloading our repository, navigate to the repository folder by typing "cd COP-4331-Group-14". Then navigate to the QUp folder by typing "cd QUp" in the terminal window
+
+4. Once in the QUp folder you will need to run the following command "npm install" to install the necessary
+node modules.
+
+5. After installing the node modules, you are ready to run the app and can do so by typing the following command
+- If you selected iOS as target OS for your emulator please type "react-native run-ios" to launch the app and emulator
+- If you selected Android as the target OS for your emulator please type "react-native run-android" to launch the app and emulator.<br /> 
+Note: For the Android app you will need to have an android emulator running before typing the command above for it to load the app on the emulator.
