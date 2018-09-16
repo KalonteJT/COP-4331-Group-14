@@ -1,11 +1,11 @@
 Build Instructions for running Queue Up
 ----------------------------------------
-An emulator is required in order to run Queue Up. For instructions on setting up the development
-environment necessary to run the app, please go to the site below:
-https://facebook.github.io/react-native/docs/getting-started.html
-Once there, click the right tab "Building Projects with Native Code". You will need to select
-the current OS your computer is using next to "Development OS". You will also need to
-select the target OS for whichever emulator you plan on using to run the app.<br /> 
+Queue Up is built with React Native. An emulator is required in order to run Queue Up. For instructions on setting up the development
+environment necessary to run the app, please go to the site below:<br />
+https://facebook.github.io/react-native/docs/getting-started.html <br />
+Once there, click the right tab **"Building Projects with Native Code"**. You will need to select
+the current OS your computer is using next to **"Development OS"**. You will also need to
+select the **"Target OS"** for whichever emulator you plan on using to run the app.<br /> 
 **Note: If using a Windows or Linux OS you must use the Android emulator as XCode is not supported by these OS.<br />
 Note: You will also need Java SDK 8 in order to run this app on an android emulator.<br />**
 After following through the tutorial on setting up the environment necessary to run the app, please follow these instructions once you have opened a terminal window.
