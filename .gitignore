@@ -18,3 +18,5 @@ node_modules
 
 # Linter 
 .eslintrc.json
+
+node_modeules/*
