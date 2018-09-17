@@ -17,4 +17,4 @@ node_modules
 *.DS_STORE
 
 # Linter 
- .eslintrc
+.eslintrc.json
