@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "RESTful framwork for QUP based on hapi.js and monodb",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "hapi": "^17.5.4",
+    "mongodb": "^3.1.4",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

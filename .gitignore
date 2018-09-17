@@ -1,0 +1,20 @@
+# # # # # # # # # # # # # # # # # # # 
+#                                   #
+#              .gitignore           #
+#        #CleanAllTheFiles:)        #
+#                                   #
+# # # # # # # # # # # # # # # # # # #
+
+#AKA IF I SEE ONE MORE .DS_STORE
+
+# Logs
+logs
+
+# Node Modules
+node_modules
+
+# System Files
+*.DS_STORE
+
+# Linter 
+ .eslintrc
