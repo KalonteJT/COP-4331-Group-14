@@ -38,7 +38,7 @@ Instructions
 -------------------------
 
 0. Ensure the required Prerequisites have been satisfied.
-1. Navigate to the backend folder from your local 
+1. Navigate to the backend folder from your local terminal
 2. Run the following in order:
 
 ```szh
@@ -49,13 +49,13 @@ npm install
 node server.js
 ```
 
-At this point, you should see the message `Server running at: http://localhost:3000` displayed in terminal. To change the hosted port, see [server.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/server.js).
+At this point, you should see the message `Server running at: http://localhost:3000`. To change the hosted port, see [server.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/server.js).
 
 
 Testing
 -------------------------
 
-The routes are defined in their respective files. However, here are some sample tests (Browser or CommandLine).
+Routes (endpoints) are defined in their respective files. The following is an example of how to test them. Ensure the previous instructions were followed and you have access to a web browser and/or curl
 
 
 ### Events
