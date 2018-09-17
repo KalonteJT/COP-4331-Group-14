@@ -9,11 +9,11 @@ Structure
 
 The file structure can be found under the backup folder.
 
-* [server](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/server.js).js[^1]
+* [server.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/server.js)[^1]
 * routes/
-* --[users.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/users.js).js[^2]
-* --[events.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/events.js).js[^3]
-* [package.json](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/package.json).js[^4]
+* --[users.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/users.js)[^2]
+* --[events.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/events.js)[^3]
+* [package.json](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/package.json)[^4]
 
 
 [^1]: Server definition and application entrypoint
