@@ -24,9 +24,9 @@ Proposed Stack
 Roles
 ---------------------------------
 
-   1. **Product Owner:** [Unknown]
-   2. **Scrum Master:** [Unknown]
-   3. **Development Team:** [Unknown] [Unknown] [Unknown]
+   1. **Product Owner:** Christian Whitted
+   2. **Scrum Master:** Trevor Tosi
+   3. **Development Team:** Sean Datta, Kalonte Jackson-Tate, Colin Russell
 
 User Stories
 ---------------------------------
