@@ -38,7 +38,7 @@ exports.plugin =
          // PUT
          server.route({
             method: 'PUT',
-            path: '/events/',
+            path: '/events',
             handler: (request,h) =>
             {
                // TODO: Place event in DB if it does not exist. Err. Otherwise (username taken)

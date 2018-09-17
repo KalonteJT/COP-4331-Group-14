@@ -66,7 +66,7 @@ exports.plugin = {
          handler: (request,h) =>
          {
             // TODO: Remove a user from the DB. Err if user DNE.
-            return "Umm....";
+            return "Umm.... Delete what?";
          }
       });
    }
