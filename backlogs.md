@@ -2,6 +2,7 @@
 --------------------
 We are using our issues tab found here https://github.com/KalonteJT/COP-4331-Group-14/issues as our product backlog
 
+Note: Use the [ZenHub](https://www.zenhub.com/) plugin to see a more detailed view of our sprint, etc.
 
 **Sprint #1 Backlog**
 ---------------------
