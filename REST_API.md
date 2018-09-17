@@ -11,10 +11,9 @@ The file structure can be found under the backup folder.
 
 * [server.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/server.js)
    - Server definition and entrypoint
-* routes/
-* --[users.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/users.js)
+* [routes/users.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/users.js)
    -  Contains USER endpoints
-* --[events.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/events.js)
+* [routes/events.js](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/routes/events.js)
    - Contains EVENT endpoints
 * [package.json](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/backend/package.json)
    - Defines the npm dependencies for the API
