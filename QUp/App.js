@@ -1,7 +1,8 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native';
-
+import Auth0 from 'react-native-auth0';
+const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2qNalg2HYe1Su0VH' });
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -28,6 +29,17 @@ export default class App extends React.Component {
       })
 
     });
+  }
+  _onLogin(){
+    auth0
+    .webAuth
+    .authorize({scope: 'openid profile email', audience: 'https://qup.auth0.com/userinfo'})
+    .then(credentials =>
+      console.log(credentials)
+      // Successfully authenticated
+      // Store the accessToken
+    )
+    .catch(error => console.log(error));
   }
 
 
@@ -64,6 +76,7 @@ export default class App extends React.Component {
                     <Text style={styles.welcomeText}>Welcome to QUp!</Text>
                     </View>
                     <Button onPress={this.databaseUpdate} title="Press me" />
+                    <Button onPress={this._onLogin} title="Login" />
       <View style = {[styles.layoutContainer, styles.windowBox]}></View>
       </View>
           );
