@@ -19,7 +19,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthorized: false
+      isAuthorized: true
     }
   }
   
@@ -43,6 +43,7 @@ export default class App extends React.Component {
     });
   }
   _onLogin(){
+    this.setState({isAuthorized: false});
      auth0
     .webAuth
     .authorize({scope: 'openid profile email', audience: 'https://qup.auth0.com/userinfo'})
@@ -56,7 +57,7 @@ export default class App extends React.Component {
     .catch(error => console.log(error));
 
 
-
+    this.setState({isAuthorized: true});
   }
 
 
