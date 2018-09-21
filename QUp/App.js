@@ -2,6 +2,8 @@ import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native';
 import Auth0 from 'react-native-auth0';
+
+
 const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2qNalg2HYe1Su0VH' });
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -13,6 +15,16 @@ const instructions = Platform.select({
 type Props = {};
 
 export default class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthorized: false
+    }
+  }
+  
+
+
   databaseUpdate(){
     var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
       var myDB = "qupdb";
@@ -31,16 +43,25 @@ export default class App extends React.Component {
     });
   }
   _onLogin(){
-    auth0
+     auth0
     .webAuth
     .authorize({scope: 'openid profile email', audience: 'https://qup.auth0.com/userinfo'})
-    .then(credentials =>
-      console.log(credentials)
+    .then(credentials => {
+      console.log(credentials),
+      this.setState({isAuthorized: true});
+    }
       // Successfully authenticated
       // Store the accessToken
     )
     .catch(error => console.log(error));
+
+
+
   }
+
+
+  
+
 
 
 //    This is the code for connecting through the node driver
@@ -70,19 +91,39 @@ export default class App extends React.Component {
 
 
   render() {
-    return (
+    if (!this.state.isAuthorized){
+        this._onLogin();
+        
+      return (
+      <View style={styles.container}>
+      
+                   
+      <View style = {[styles.layoutContainer, styles.preLogin]}>
+        
+      </View>
+      </View> 
+    
+          );
+  }
+
+    
+    else if (this.state.isAuthorized){
+      return (
       <View style={styles.container}>
       <View style = {[styles.layoutContainer, styles.topBanner]}>
                     <Text style={styles.welcomeText}>Welcome to QUp!</Text>
                     </View>
                     <Button onPress={this.databaseUpdate} title="Press me" />
-                    <Button onPress={this._onLogin} title="Login" />
       <View style = {[styles.layoutContainer, styles.windowBox]}></View>
-      </View>
+      </View> 
+    
           );
-  }
+    }
+
 }
 
+    
+}
 
       
 
@@ -115,6 +156,10 @@ const styles = StyleSheet.create({
     //fontStyle: 'bold',
     backgroundColor: '#FC4AAB',
     marginTop: 25,
+  },
+  preLogin: {
+    flex: 1,
+    backgroundColor: '#f257e2'
   },
   /*welcome: {
     fontSize: 20,
