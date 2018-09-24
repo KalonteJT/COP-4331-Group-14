@@ -2,7 +2,9 @@ import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native';
 import Auth0 from 'react-native-auth0';
-
+import { createStackNavigator} from 'react-navigation';
+import { FormLabel, FormInput, FormValidationMessage, Input } from 'react-native-elements';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2qNalg2HYe1Su0VH' });
 const instructions = Platform.select({
@@ -12,16 +14,31 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
 
-export default class App extends React.Component {
 
-  constructor(props) {
+ class HomeScreen extends React.Component {
+    constructor(props) {
     super(props);
     this.state = {
       isAuthorized: true
     }
+      const {navigation} = this.props.navigation;
   }
+
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerTitle: "QUp",
+      headerRight: (
+        <View style={styles.buttonStyle}>
+          <Button onPress={() => navigation.navigate('NewEvent')}
+          title="New Event"
+          color="#53575e"
+          />
+        </View>
+      ),
+    };
+  };
   
 
 
@@ -111,10 +128,14 @@ export default class App extends React.Component {
     else if (this.state.isAuthorized){
       return (
       <View style={styles.container}>
-      <View style = {[styles.layoutContainer, styles.topBanner]}>
+      {/*<View style = {[styles.layoutContainer, styles.topBanner]}>
                     <Text style={styles.welcomeText}>Welcome to QUp!</Text>
-                    </View>
-                    <Button onPress={this.databaseUpdate} title="Press me" />
+                    </View>*/}
+                    {/*<Button onPress={this.databaseUpdate} title="Press me" />*/}
+       <Grid>
+            <Col><View style={styles.buttonStyle}><Button title="Search Events"/></View></Col>
+            <Col><View style={styles.buttonStyle}><Button title="My Event List"/></View></Col>
+        </Grid>             
       <View style = {[styles.layoutContainer, styles.windowBox]}></View>
       </View> 
     
@@ -124,6 +145,69 @@ export default class App extends React.Component {
 }
 
     
+}
+
+class NewEventScreen extends React.Component {
+  render(){
+     return(
+      <View style={{
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      }}>
+        
+        
+          
+            
+            <FormLabel>Name</FormLabel>
+            
+            <FormInput style={styles.container} placeholder="enter some text" />
+            
+              <FormLabel>Location</FormLabel>
+              
+              <FormInput/>
+           
+            
+         
+            <FormLabel>Time</FormLabel>
+            <FormInput/>
+            
+         <View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('Home')} 
+         title="Create Event!" /></View>
+        
+        
+      </View>
+        
+
+    )
+  }
+}
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    NewEvent: NewEventScreen,
+  },
+  {
+    initialRouteName: 'Home',
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#FC4AAB', 
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        alignSelf: 'center',
+      },
+    },
+ }
+);
+
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack />;
+  }
 }
 
       
@@ -138,6 +222,9 @@ const styles = StyleSheet.create({
   //Ensures a 1:1 Flex Ratio w/ container
   layoutContainer: {
     flex: 1,
+  },
+  buttonStyle: {
+    margin: 4,
   },
   //Flex Container for the Top Banner
   topBanner: {
