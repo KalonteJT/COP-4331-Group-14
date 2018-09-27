@@ -1,77 +1,130 @@
 'use strict';
 
+var mongoose = require('mongoose');
+var User = require('mongoose').model('User');
+var Event = require('mongoose').model('Event');
+
 exports.plugin =
-   {
-      name: 'routes-events',
-      register: async function(server, options, next) {
+    {
+        name: 'routes-events',
+        register: async function(server, options, next) {
 
-         // Routes
-         // ------------------
-         // GET
-         server.route({
-            method: 'GET',
-            path: '/events',
-            handler: (request,h) =>
-            {
-               // TODO: Retrieve a list of events from the DB. Top {number} with deeper increments.
-               return "{\n\t{\n\t\tname: \"test_event\",\n\t\ttime: \"13:00\",\n\t\tlocation: \"somewhere\"\n\t},"
-               + "\n\t{\n\t\tname: \"fake_event\",\n\t\ttime: \"24:15\", \n\t\tlocation: \"a place\"\n\t},"
-               + "\n\t{\n\t\tname: \"no_event\",\n\t\ttime: \"???\", \n\t\tlocation: \"Uhh.... error?\"\n\t}\n}";
-            }
-         });
+            // Routes
+            // ------------------
+            // GET
+            server.route({
+                method: 'GET',
+                path: '/events',
+                handler: async (request,h) =>
+                {
+                    // TODO: Validate Query
+                    return Event.find().exec();
+                }
+            });
 
-         server.route({
-            method: 'GET',
-            path: '/events/{event}',
-            handler: (request,h) =>
-            {
-               // TODO: Get selected event info from db
-               return `{\n\tname: "${encodeURIComponent(request.params.event)}",`
-                  +"\n\ttime: \"infinite\", \n\tlocation: \"space\"," 
-                  + "\n\tuser: [ \"Gary\", \"Avocato\", \"Quin\", \"KEVN\" ]\n}";
-            }
-         });
+            server.route({
+                method: 'GET',
+                path: '/events/{id}',
+                handler: async function (request,h)
+                {
+                    // TODO: Validate Query
+                    return Event.find({ _id: request.query.id}).exec();
+                }
+            });
 
 
-         // Routes
-         // ------------------
-         // PUT
-         server.route({
-            method: 'PUT',
-            path: '/events',
-            handler: (request,h) =>
-            {
-               // TODO: Place event in DB if it does not exist. Err. Otherwise (username taken)
-               return `PUT that thing (${encodeURIComponent(request.payload.event)}) back where it came from....`;
-            }
-         });
+            // Routes
+            // ------------------
+            // PUT
+            server.route({
+                method: 'PUT',
+                path: '/events',
+                handler: async function (request,h)
+                {
+                    var payload = request.payload;
+
+                    // if !validate(payload) return h.response('Nice Try fam..').code(400);
+
+                    var event = new Event({
+                        name: payload.name,
+                        desc: payload.desc,
+                        time: {
+                            start: payload.start, 
+                            end: payload.end
+                        },
+                        loc: payload.loc,
+                        host: payload.host,
+                        members: payload.members,
+                        capacity: payload.capacity
+                    });
+
+                    console.log(event);
+
+                    try {
+                        var response =  event.save(err => { 
+                            if (err) return err;
+                        });
+                        return h.
+                            response(`Successfully Created ${encodeURIComponent(request.params.name)}`)
+                            .code(201);
+                    } 
+                    catch(error) { 
+                        console.error(error);
+                        return h.response('Request could not be processed').code(400);
+                    }
+                }
+            });
+
+            // Routes
+            // ------------------
+            // POST
+            server.route({
+                method: 'POST',
+                path: '/events/{id}',
+                handler: async function (request,h)
+                {
+                    // TODO: Validate
+                    var payload = request.payload;
+
+                    // if !validate(payload) return h.response('Nice Try fam..').code(400);
+
+                    var event = Event.findByIdAndUpdate(
+                        encodeURIComponent(request.params.id), 
+                        payload, 
+                        (err) => {
+                            if (err) return h.response(err).code(400);
+                        });
+
+                    return h
+                        .response(`Successfully Updated ${encodeURIComponent(event.name)}`)
+                        .code(201);
+                }
+            });
 
 
-         // Routes
-         // ------------------
-         // POST
-         server.route({
-            method: 'POST',
-            path: '/events',
-            handler: (request,h) =>
-            {
-               // TODO: Update an events info in the DB
-               return `POST-ed this thing (${encodeURIComponent(request.payload.event)}) somewhere I think...`;
-            }
-         });
+            // Routes
+            // ------------------
+            // DELETE
+            server.route({
+                method: 'DELETE',
+                path: '/events/{id}',
+                handler: async function (request,h)
+                {
+                    var payload = request.payload;
 
+                    // if !validate(payload) return h.response('Nice Try fam..').code(400);
 
-         // Routes
-         // ------------------
-         // DELETE
-         server.route({
-            method: 'DELETE',
-            path: '/events/{event}',
-            handler: (request,h) =>
-            {
-               // TODO: Remove an event from from DB. Err if event DNE.
-               return `Nothing clever. DELETE THIS:  (${encodeURIComponent(request.payload.event)})`;
-            }
-         });
-      }
-   };
+                    var event = Event.findByIdAndDelete(
+                        encodeURIComponent(request.params.id), 
+                        payload, 
+                        (err) => {
+                            if (err) return h.response(err).code(400);
+                        });
+
+                    return h
+                        .response(`Successfully Removed ${encodeURIComponent(event.name)}`)
+                        .code(201);
+                }   
+            });
+        }
+    };

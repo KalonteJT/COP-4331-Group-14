@@ -6,7 +6,9 @@
   "private": true,
   "dependencies": {
     "hapi": "^17.5.4",
+    "joi": "^13.6.0",
     "mongodb": "^3.1.4",
+    "mongoose": "^5.2.15",
     "uuid": "^3.3.2"
   },
   "devDependencies": {},
