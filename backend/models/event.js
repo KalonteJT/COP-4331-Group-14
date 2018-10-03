@@ -38,7 +38,7 @@ EventSchema.index({ loc: '2dsphere' });
 
 EventSchema.statics.findNearby = async function(coords, dist) {
    return this.find({
-      location: {
+      loc: {
          $near: {
             $maxDistance: dist,
             $geometry: {
@@ -47,13 +47,8 @@ EventSchema.statics.findNearby = async function(coords, dist) {
             }
          }
       }
-   }).find((error, results) => {
-      if (error)
-         console.log(error);
-
-      console.log(JSON.stringify(results, 0, 2));
    });
-}
+};
 
 EventSchema.statics.findAll = async function() {
    return Event.find({}).exec().then((event) => {

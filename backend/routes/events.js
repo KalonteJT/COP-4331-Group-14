@@ -18,9 +18,26 @@ exports.plugin =
                 handler: async (request,h) =>
                 {
                     // TODO: Validate Query
-                    return Event.find().exec();
+                    var query = request.query;
+
+                    // Query based on distance
+                    try {
+                        var events;
+                        if (query.lon && query.lat && query.dist) {
+                           events = Event.findNearby([query.lon, query.lat], query.dist * 1609.34);
+                        }
+                        else {
+                           events = Event.find().limit(15).exec();
+                        }
+                    }
+                    catch (err) {
+                        console.log(err);
+                        return h.response('Malformed request could not be processed').code(400);
+                    }
+                    return h.response(events).code(200);
                 }
             });
+
 
             server.route({
                 method: 'GET',
@@ -96,7 +113,7 @@ exports.plugin =
                         });
 
                     return h
-                        .response(`Successfully Updated ${encodeURIComponent(event.name)}`)
+                        .response(`Successfully Updated event: ${encodeURIComponent(event.name)}`)
                         .code(201);
                 }
             });
@@ -122,8 +139,8 @@ exports.plugin =
                         });
 
                     return h
-                        .response(`Successfully Removed ${encodeURIComponent(event.name)}`)
-                        .code(201);
+                        .response(`Successfully removed event: ${encodeURIComponent(event.name)}`)
+                        .code(203);
                 }   
             });
         }
