@@ -1,0 +1,9 @@
+{
+   "host"       : "mongodb://ds247852.mlab.com:47852/",
+   "db"         : "qupdb",
+   "prefix"     : "mongodb://",
+   "name"       : "qupdb",
+   "user"       : "qupUser",
+   "password"   : "#cckst5"
+}
+

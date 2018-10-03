@@ -1,0 +1,25 @@
+1. Each event has its own queue of people that have requested to join
+
+2. Closed events should not appear on the map until the user has been invited to the event.
+
+3. Open events are visible on the map and anyone can sign up while the event is not full.
+
+4. events have a name, location, date, time, description, max allowable participants, public/private status
+
+5. open events auto-accept anyone that joins 
+
+6. users must get within a certain distance of an event for them to be considered to have attended
+
+7. users can't sign up for events with conflicting times
+
+8. users have a limit to how many events they can create in a week
+
+9. users have a limit to how far in advance they can create an event 
+
+10. users can see the events they're signed up for
+
+11. users can rate events they attended
+
+12. the map only shows events that start in < 2 hours
+
+13. end time for event is required
