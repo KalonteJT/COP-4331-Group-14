@@ -3,8 +3,10 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native';
 import Auth0 from 'react-native-auth0';
 import { createStackNavigator} from 'react-navigation';
-import { FormLabel, FormInput, FormValidationMessage, Input } from 'react-native-elements';
+import { FormLabel, FormInput, SearchBar, FormValidationMessage, Input, List, ListItem, ListView } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import FlatList from "FlatList";
+
 const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2qNalg2HYe1Su0VH' });
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -65,11 +67,10 @@ const instructions = Platform.select({
     auth0
     .webAuth
     .authorize({scope: 'openid profile email', audience: 'https://qup.auth0.com/userinfo'})
-    .then(credentials =>
-      console.log(credentials)
-      // Successfully authenticated
-      // Store the accessToken
-    )
+    .then(credentials => {
+        console.log(credentials);
+      })
+
     .catch(error => console.log(error));
   }
 
@@ -115,7 +116,7 @@ const instructions = Platform.select({
                     {/*<Button onPress={this.databaseUpdate} title="Press me" />*/}
        <Grid>
             <Col><View style={styles.buttonStyle}><Button title="Search Events"/></View></Col>
-            <Col><View style={styles.buttonStyle}><Button onPress={() => {this.getMyEvents()}} title="My Event List" /></View></Col>
+            <Col><View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('EventList')} title="My Event List" /></View></Col>
         </Grid>             
 
       <View style = {[styles.layoutContainer, styles.windowBox]}></View>
@@ -187,10 +188,98 @@ class NewEventScreen extends React.Component {
   }
 }
 
+export class EventListScreen extends React.Component {
+  
+  static navigationOptions = {
+    headerTitle: (<SearchBar containerStyle={{ flex: 1, 
+      width: '100%', height: '100%', backgroundColor: '#FC4AAB',
+      borderBottomWidth: 0, borderTopWidth: 0}}
+      placeholder = "Search" 
+      round
+      />
+    ),
+  }
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+      data: [],
+      page: 1,
+      seed: 1,
+      error: null,
+      refreshing: false
+    }
+  }
+
+  componentDidMount() {
+    this.makeRemoteRequest();
+  }  
+
+  makeRemoteRequest = () => {
+    //const{ page, seed } = this.state;
+    const url = `http://104.248.112.100/events`;
+    this.setState({ loading: true });
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState ({
+          data: res,
+          error: res.error || null,
+          loading: false,
+          refreshing: false
+        });
+      })
+      .catch(error=> {
+        this.setState({ error, loading: false});
+      });
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "90%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "5%",
+        }}
+      />
+    );
+  };
+
+  render() {
+    return (
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => (
+            <ListItem
+              roundAvatar
+              title={`${item.name}`}
+              subtitle={`${item.loc} at ${item.time}`}
+              //subtitle={`By: ${item.owner}`}
+              containerStyle={{ borderBottomWidth: 0 }}
+            />
+          )}
+          keyExtractor={item => item._id}
+          ItemSeparatorComponent={this.renderSeparator}
+          //ListHeaderComponent={this.renderHeader}
+          //ListFooterComponent={this.renderFooter}
+          //onRefresh={this.handleRefresh}
+          //refreshing={this.state.refreshing}
+          //onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={50}
+        />
+    );
+  }
+}
+
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     NewEvent: NewEventScreen,
+    EventList: EventListScreen,
   },
   {
     initialRouteName: 'Home',
