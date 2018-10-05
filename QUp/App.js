@@ -143,8 +143,8 @@ class NewEventScreen extends React.Component {
           },
         body: JSON.stringify({
         name: this.state.eventName,
-        time: "time",
-        location: "location",
+        time: this.state.eventTime,
+        location: this.state.eventLocation,
         owner: "trevor"
       })
 
@@ -163,12 +163,14 @@ class NewEventScreen extends React.Component {
             <View style={styles.row}>
               <FormLabel>Location</FormLabel>
               
-              <FormInput placeholder="P Sherman, 42 Wallaby Way"/>
+              <FormInput placeholder="P Sherman, 42 Wallaby Way"
+              onChangeText={(value) => this.setState({eventLocation: value})}/>
             </View>
             <View style={styles.row}>
          
             <FormLabel>Time</FormLabel>
-            <FormInput placeholder="When we get there"/>
+            <FormInput placeholder="When we get there"
+            onChangeText={(value) => this.setState({eventTime: value})}/>
             </View>
              
          <View style={styles.buttonStyle} ><Button onPress={() => {
@@ -211,7 +213,8 @@ export default class App extends React.Component {
     super(props);
     this.state={
       eventName:'',
-      eventTime: ''
+      eventTime: '',
+      eventLocation: ''
     }
   }
   render() {
