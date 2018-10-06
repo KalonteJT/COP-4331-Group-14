@@ -30,8 +30,9 @@ Prerequisites
    * [NPM](https://www.npmjs.com)       - Node.js Package Manager
 
 **Recommended**
-   * A Browser   - Preferably yours.
-   * [CURL](https://curl.haxx.se)   - Hitting the API from your terminal.
+   * A Browser - Preferably yours.
+   * [POSTMAN](https://www.getpostman.com) - GUI for hitting an API
+   * [CURL](https://curl.haxx.se) - For the Terminal Users
 
 
 Instructions
