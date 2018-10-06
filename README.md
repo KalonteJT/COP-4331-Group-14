@@ -10,8 +10,8 @@ here](https://github.com/KalonteJT/COP-4331-Group-14) at a later date.
 
 **Build Instructions**
 -----------------------------
-Please follow the instructions here for setting up the environment
-to run Queue Up. https://github.com/KalonteJT/COP-4331-Group-14/blob/master/Build_Instructions.md
+Please follow the instructions [here](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Build_Instructions.md) 
+for setting up the environment to run Queue Up.
 
 
 The Team
@@ -59,6 +59,6 @@ when you want, hang with your friends, or mix it up.
 The Design
 -----------------------------
 
-UML Class Diagram(https://www.lucidchart.com/invitations/accept/f043aba4-1715-4362-81d3-f67197795195)         
-UML Component Diagram (https://www.lucidchart.com/invitations/accept/a9c976f5-3fdb-4f47-b8e8-f646c9076a8c)
+[UML Class Diagram](https://www.lucidchart.com/invitations/accept/f043aba4-1715-4362-81d3-f67197795195)         
+[UML Component Diagram](https://www.lucidchart.com/invitations/accept/a9c976f5-3fdb-4f47-b8e8-f646c9076a8c)
 
