@@ -1,11 +1,12 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native';
+import { Button, AsyncStorage } from 'react-native';
 import Auth0 from 'react-native-auth0';
 import { createStackNavigator} from 'react-navigation';
 import { FormLabel, FormInput, SearchBar, FormValidationMessage, Input, List, ListItem, ListView } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import FlatList from "FlatList";
+import jwt_decode from 'jwt-decode';
 
 const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2qNalg2HYe1Su0VH' });
 const instructions = Platform.select({
@@ -14,6 +15,27 @@ const instructions = Platform.select({
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
 });
+
+const saveUserId = async userId => {
+          try {
+            await AsyncStorage.setItem('userId', userId);
+          } catch (error) {
+            // Error retrieving data
+            console.log(error.message);
+          }
+        };
+  
+const getUserId = async () => {
+  let userId = '';
+  try {
+    userId = await AsyncStorage.getItem('userId') || 'none';
+  } catch (error) {
+    // Error retrieving data
+    console.log(error.message);
+  }
+  console.log('here it is ' + userId);
+  return userId;
+}
 
 
 
@@ -59,20 +81,22 @@ const instructions = Platform.select({
 
   }
 
-
   
-
-
   _onLogin(){
     auth0
     .webAuth
     .authorize({scope: 'openid profile email', audience: 'https://qup.auth0.com/userinfo'})
     .then(credentials => {
-        console.log(credentials);
+      let idInformation = jwt_decode(credentials.idToken);
+      saveUserId(idInformation.email)
+      let kkl = getUserId();
+      console.log(kkl);
+     
       })
 
     .catch(error => console.log(error));
   }
+
 
 
 //    This is the code for connecting through the node driver
@@ -131,11 +155,23 @@ const instructions = Platform.select({
 }
 
 class NewEventScreen extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      eventName:'',
+      eventTime: '',
+      eventLocation: '',
+      userEmail: ''
+    }
+  }
+  
 
   createEvent(){
     var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
       var myDB = "qupdb";
       var myCollection = "Events";
+      console.log(this.state);
+      getUserId().then((result) => {
       fetch("https://api.mlab.com/api/1/databases/"+myDB+"/collections/"+myCollection+"?apiKey="+apiKey,{
           method: 'POST',
           headers: {
@@ -146,10 +182,10 @@ class NewEventScreen extends React.Component {
         name: this.state.eventName,
         time: this.state.eventTime,
         location: this.state.eventLocation,
-        owner: "trevor"
+        userEmail: result
       })
 
-    });
+    })}).catch(error => console.log(error));
   }
 
   render(){
@@ -209,17 +245,29 @@ export class EventListScreen extends React.Component {
       page: 1,
       seed: 1,
       error: null,
-      refreshing: false
+      refreshing: false,
+     
     }
   }
 
-  componentDidMount() {
-    this.makeRemoteRequest();
+  componentWillMount() {
+    getUserId().then(this.makeRemoteRequest, (error) => {
+  console.log(error) //Display error
+});
+    
+    
   }  
 
-  makeRemoteRequest = () => {
+  makeRemoteRequest = (result) => {
     //const{ page, seed } = this.state;
-    const url = `http://104.248.112.100/events`;
+    var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
+      var myDB = "qupdb";
+      var myCollection = "Events";
+      console.log(this.state);
+      var query = `{"${'userEmail'}":"${result}"}`;
+      var url = "https://api.mlab.com/api/1/databases/"+myDB+"/collections/"+myCollection+"?q="+query+"&apiKey="+apiKey;
+      console.log(url);
+    {/*const url = `http://104.248.112.100/events`;*/}
     this.setState({ loading: true });
     fetch(url)
       .then((res) => res.json())
@@ -257,8 +305,8 @@ export class EventListScreen extends React.Component {
             <ListItem
               roundAvatar
               title={`${item.name}`}
-              subtitle={`${item.loc} at ${item.time}`}
-              //subtitle={`By: ${item.owner}`}
+              subtitle={`${item.location} at ${item.time}`}
+              //subtitle={`By: ${item.userEmail}`}
               containerStyle={{ borderBottomWidth: 0 }}
             />
           )}
@@ -303,7 +351,8 @@ export default class App extends React.Component {
     this.state={
       eventName:'',
       eventTime: '',
-      eventLocation: ''
+      eventLocation: '',
+      userEmail: ''
     }
   }
   render() {
