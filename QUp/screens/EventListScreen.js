@@ -1,12 +1,8 @@
 import React from 'react';
 import { Platform, StyleSheet, View, Button, AsyncStorage, TouchableOpacity, TextInput } from 'react-native';
-import Auth0 from 'react-native-auth0';
-import { createStackNavigator} from 'react-navigation';
-import { FormLabel, FormInput, SearchBar, FormValidationMessage, Input, List, ListItem, ListView, Text } from 'react-native-elements';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import {SearchBar, Input, List, ListItem, Text } from 'react-native-elements';
 import FlatList from "FlatList";
-import jwt_decode from 'jwt-decode';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+
 
 import {styles } from '../styles/eventlistscreen';
 import {saveUserId, getUserId} from '../utils/Storage';
