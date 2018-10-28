@@ -8,6 +8,7 @@ container: {
     //backgroundColor: '#F5FCFF',
   },
   buttonStyle: {
+    flex: 1,
     margin: 4,
     marginBottom: 20,
   },

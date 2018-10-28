@@ -5,7 +5,10 @@ import { createStackNavigator} from 'react-navigation';
 
 import HomeScreen from './screens/HomeScreen';
 import NewEventScreen from './screens/NewEventScreen';
-import EventListScreen from './screens/EventListScreen';
+import MyEventListScreen from './screens/MyEventListScreen';
+import EventDetailsScreen from './screens/EventDetailsScreen';
+import FullEventListScreen from './screens/FullEventListScreen';
+import JoinEventScreen from './screens/JoinEventScreen';
 
 
 const instructions = Platform.select({
@@ -20,7 +23,10 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     NewEvent: NewEventScreen,
-    EventList: EventListScreen,
+    MyEventList: MyEventListScreen,
+    EventDetails: EventDetailsScreen,
+    FullEventList: FullEventListScreen,
+    JoinEvent: JoinEventScreen
   },
   {
     initialRouteName: 'Home',

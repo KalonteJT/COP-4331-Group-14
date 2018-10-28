@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, View, Button, AsyncStorage, TouchableOpacity, TextInput } from 'react-native';
+import { Platform, StyleSheet, View, Button, AsyncStorage, TouchableOpacity, TextInput  } from 'react-native';
 import {SearchBar, Input, List, ListItem, Text } from 'react-native-elements';
 import FlatList from "FlatList";
 
@@ -8,7 +8,7 @@ import {styles } from '../styles/eventlistscreen';
 import {saveUserId, getUserId} from '../utils/Storage';
 
 
-export default class EventListScreen extends React.Component {
+export default class MyEventListScreen extends React.Component {
   
   static navigationOptions = {
     headerTitle: (<SearchBar containerStyle={styles.searchStyle}
@@ -35,10 +35,8 @@ export default class EventListScreen extends React.Component {
   componentWillMount() {
     getUserId().then(this.makeRemoteRequest, (error) => {
   console.log(error) //Display error
-});
-    
-    
-  }  
+  });   
+}  
 
   makeRemoteRequest = (result) => {
     //const{ page, seed } = this.state;
@@ -84,13 +82,14 @@ export default class EventListScreen extends React.Component {
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => (
-            <ListItem
-              roundAvatar
-              title={`${item.name}`}
-              subtitle={`${item.location} at ${item.time}`}
-              //subtitle={`By: ${item.userEmail}`}
-              containerStyle={{ borderBottomWidth: 0 }}
-            />
+            <TouchableOpacity onPress={ () => this.props.navigation.navigate('EventDetails')}>
+              <ListItem
+                title={`${item.name}`}
+                subtitle={`${item.location} at ${item.time}`}
+                //subtitle={`By: ${item.userEmail}`}
+                containerStyle={{ borderBottomWidth: 0 }}
+              />
+            </TouchableOpacity >
           )}
           keyExtractor={item => item._id}
           ItemSeparatorComponent={this.renderSeparator}

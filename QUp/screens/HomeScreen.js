@@ -57,8 +57,8 @@ export default class HomeScreen extends React.Component {
       return (
       <View style={styles.container}>
        <Grid>
-            <Col><View style={styles.buttonStyle}><Button title="Search Events"/></View></Col>
-            <Col><View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('EventList')} title="My Event List" /></View></Col>
+            <Col><View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('FullEventList')} title="Browse Events" /></View></Col>
+            <Col><View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('MyEventList')} title="My Event List" /></View></Col>
         </Grid>             
 
       <View style = {[styles.layoutContainer, styles.windowBox]}></View>
