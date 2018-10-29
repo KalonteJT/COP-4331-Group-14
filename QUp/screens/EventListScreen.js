@@ -117,6 +117,7 @@ export default class EventListScreen extends React.Component {
               subtitle={`${item.location} at ${item.time}`}
               //subtitle={`By: ${item.userEmail}`}
               containerStyle={{ borderBottomWidth: 0 }}
+              onPress={ () => this.props.navigation.navigate('JoinEvent')}
             />
           )}
           keyExtractor={item => item._id}
