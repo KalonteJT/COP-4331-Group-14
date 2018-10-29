@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, StyleSheet, View, Button, AsyncStorage, TouchableOpacity, TextInput } from 'react-native';
-import {SearchBar, Input, List, ListItem, Text } from 'react-native-elements';
+import {SearchBar, Input, List, ListItem, Text, Icon } from 'react-native-elements';
 import FlatList from "FlatList";
 
 
@@ -79,6 +79,26 @@ export default class EventListScreen extends React.Component {
     );
   };
 
+  deleteEvent(itemName) {
+  	var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
+      var myDB = "qupdb";
+      var myCollection = "Events";
+      console.log(this.state);
+      var query = `{"${'name'}":"${itemName}"}`;
+      console.log(itemName);
+      var url = "https://api.mlab.com/api/1/databases/"+myDB+"/collections/"+myCollection+"/"+itemName+"?apiKey="+apiKey;
+      console.log(url);
+      fetch(url,{
+          method: 'delete'})
+      .then(response => console.log(response));
+
+      
+      getUserId().then(this.makeRemoteRequest, (error) => {
+  console.log(error) //Display error
+})
+    this.forceUpdate();
+  }
+
   render() {
     return (
         <FlatList
@@ -86,6 +106,13 @@ export default class EventListScreen extends React.Component {
           renderItem={({ item }) => (
             <ListItem
               roundAvatar
+              leftIcon={
+              	<Icon
+              		name='close'
+              		color='red'
+              		onPress={() => this.deleteEvent(item._id.$oid)}
+              	/>
+              }
               title={`${item.name}`}
               subtitle={`${item.location} at ${item.time}`}
               //subtitle={`By: ${item.userEmail}`}
