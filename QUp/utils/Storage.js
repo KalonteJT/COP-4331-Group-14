@@ -17,9 +17,5 @@ export const getUserId = async () => {
     // Error retrieving data
     console.log(error.message);
   }
-  console.log('here it is ' + userId);
   return userId;
 }
-
-
-

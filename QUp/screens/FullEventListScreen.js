@@ -33,18 +33,14 @@ export default class FullEventListScreen extends React.Component {
     }
 
     componentWillMount() {
-        getUserId().then(this.makeRemoteRequest, (error) => {
-      console.log(error) //Display error
-      });   
+      this.makeRemoteRequest();
     }  
 
-    makeRemoteRequest = (result) => {
+    makeRemoteRequest = () => {
         //const{ page, seed } = this.state;
         var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
           var myDB = "qupdb";
-          var myCollection = "Events";
           console.log(this.state);
-          var query = `{"${'userEmail'}":"${result}"}`;
           var url = "https://api.mlab.com/api/1/databases/"+myDB+"/collections/Events?&apiKey="+apiKey;
           console.log(url);
         {/*const url = `http://104.248.112.100/events`;*/}
@@ -76,13 +72,18 @@ export default class FullEventListScreen extends React.Component {
           />
         );
       };
+
+      goJoinEvent = (item) => {
+        AsyncStorage.setItem('eventData', JSON.stringify(item));
+        this.props.navigation.navigate('JoinEvent', {item});
+      }
     
       render() {
         return (
             <FlatList
               data={this.state.data}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={ () => this.props.navigation.navigate('JoinEvent')}>
+                <TouchableOpacity onPress={ () => this.goJoinEvent(item)}>
                   <ListItem
                     title={`${item.name}`}
                     subtitle={`${item.location} at ${item.time}`}

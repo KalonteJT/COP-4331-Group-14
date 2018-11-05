@@ -43,10 +43,8 @@ export default class MyEventListScreen extends React.Component {
     var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
       var myDB = "qupdb";
       var myCollection = "Events";
-      console.log(this.state);
       var query = `{"${'userEmail'}":"${result}"}`;
       var url = "https://api.mlab.com/api/1/databases/"+myDB+"/collections/"+myCollection+"?q="+query+"&apiKey="+apiKey;
-      console.log(url);
     {/*const url = `http://104.248.112.100/events`;*/}
     this.setState({ loading: true });
     fetch(url)
@@ -77,12 +75,17 @@ export default class MyEventListScreen extends React.Component {
     );
   };
 
+  showMyEventDetails = (item) => {
+    AsyncStorage.setItem('eventData', JSON.stringify(item));
+    this.props.navigation.navigate('EventDetails', {item});
+  }
+
   render() {
     return (
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={ () => this.props.navigation.navigate('EventDetails')}>
+            <TouchableOpacity onPress={ () => this.showMyEventDetails(item)}>
               <ListItem
                 title={`${item.name}`}
                 subtitle={`${item.location} at ${item.time}`}

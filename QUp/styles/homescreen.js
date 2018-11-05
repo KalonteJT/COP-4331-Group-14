@@ -10,7 +10,6 @@ container: {
   buttonStyle: {
     flex: 1,
     margin: 4,
-    marginBottom: 20,
   },
   layoutContainer: {
     flex: 1,
