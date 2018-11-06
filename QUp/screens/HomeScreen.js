@@ -7,7 +7,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import FlatList from "FlatList";
 import jwt_decode from 'jwt-decode';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-
+import MapView from 'react-native-maps';
 import {styles } from '../styles/homescreen';
 import {saveUserId, getUserId} from '../utils/Storage';
 
@@ -16,11 +16,10 @@ const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2q
 export default class HomeScreen extends React.Component {
     constructor(props) {
     super(props);
-    
+      
       const {navigation} = this.props.navigation;
       this._onLogin()
   }
-
 
   static navigationOptions = ({navigation}) => {
     return {
@@ -56,12 +55,22 @@ export default class HomeScreen extends React.Component {
     
       return (
       <View style={styles.container}>
+
        <Grid>
+       
             <Col><View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('FullEventList')} title="Browse Events" /></View></Col>
             <Col><View style={styles.buttonStyle}><Button onPress={() => this.props.navigation.navigate('EventList')} title="My Event List" /></View></Col>
         </Grid>             
+        <MapView style= {styles.map}
+    initialRegion={{
+      latitude: 37.78825,
+      longitude: -122.4324,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }}
+  />
 
-      <View style = {[styles.layoutContainer, styles.windowBox]}></View>
+      
       </View> 
     
           );
@@ -69,3 +78,4 @@ export default class HomeScreen extends React.Component {
 
     
 }
+
