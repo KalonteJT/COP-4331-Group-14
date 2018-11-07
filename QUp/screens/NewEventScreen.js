@@ -1,8 +1,10 @@
 import React from 'react';
-import { Platform, StyleSheet, View, Button, AsyncStorage, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
+import { Modal, Alert, Platform, StyleSheet, View, Button, TouchableHighlight, AsyncStorage, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Input, Text } from 'react-native-elements';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-
+import MapView from 'react-native-maps';
+import {Marker} from 'react-native-maps';
+import Geocoder from 'react-native-geocoding';
 
 import {styles } from '../styles/neweventscreen';
 import {saveUserId, getUserId} from '../utils/Storage';
@@ -16,12 +18,34 @@ export default class NewEventScreen extends React.Component {
       eventName:'',
       eventTime: 'Choose Time',
       eventDate: 'Choose Date',
-      eventLocation: '',
+      userLat: '',
+      userLon: '',
+      eventString: 'Choose Location', 
+      eventCoord: {
+        latitude: 0,
+        longitude: 0,
+      },
       userEmail: '',
       isDatePickerVisible: false,
       isTimePickerVisible: false,
+      modalVisible: false,
 
     }
+    Geocoder.init('AIzaSyCRPspfu6DgUDUBOeqTFZMWG_CbnKHUzd8');
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({userLat: position.coords.latitude, userLon: position.coords.longitude});
+
+
+        console.log(position.coords.latitude + "here is lat!");
+      },
+      (error) => {console.log(error)}
+    );
+
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   _showDatePicker = () => this.setState({ isDatePickerVisible: true });
@@ -83,10 +107,60 @@ export default class NewEventScreen extends React.Component {
       
       
               <FormLabel>Location</FormLabel>
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text style={styles.eventAddressStyle}>{this.state.eventString}</Text>
+              </TouchableHighlight>
               
-              <FormInput placeholder="P Sherman, 42 Wallaby Way"
-              onChangeText={(value) => this.setState({eventLocation: value})}/>
-      
+              <Modal
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'}}>
+          <MapView style= {styles.map}
+                  initialRegion={{
+                    latitude: this.state.userLat,
+                    longitude: this.state.userLon,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}
+                  onPress={ (event) => {
+                    this.setState({ eventCoord: event.nativeEvent.coordinate})
+                  } }
+                ><Marker
+      coordinate={this.state.eventCoord}
+      title="fancy Marker"
+      description="fuckadescr"
+    />
+        </MapView>
+            <View>
+              
+            <View style={styles.buttonStyle}>
+
+              <Button                 onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                  Geocoder.from(this.state.eventCoord.latitude, this.state.eventCoord.longitude)
+        .then(json => {
+          var addressComponent = json.results[0].address_components;
+            this.setState({eventString: addressComponent[1].short_name + ' \n' + addressComponent[2].short_name + ', '+ addressComponent[4].short_name})
+            console.log(addressComponent);
+        })
+        .catch(error => console.warn(error));
+                }} title="Set Location">
+               
+              </Button>
+              </View>
+            </View>
+          </View>
+        </Modal>
             
             <View style={{flex: 1, flexDirection: 'row'}}>
             <View style={{flex: 1}}>
