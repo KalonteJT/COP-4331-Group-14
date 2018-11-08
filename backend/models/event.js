@@ -6,57 +6,55 @@ const pointSchema = require('./point').pointSchema;
 
 // Defines the basic User Schema as stored in the DB
 var EventSchema = new Schema({
-   name: { 
-      type: String, 
-      required: true
-   },
-   desc: { 
-      type: String, 
-      required: true
-   },
-   time: {
-      start: Date, 
-      end: Date
-   },
-   loc: {
-      type: pointSchema,
-      required: false
-   },
-   host: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: 'User'
-   },
-   members: [{ 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: 'User' 
-   }],
-   active: Boolean,
-   capacity: Number
-});
+    name: { 
+        type: String, 
+        required: true
+    },
+    desc: { 
+        type: String, 
+        required: true
+    },
+    loc: {
+        type: pointSchema,
+        required: true
+    },
+    owner: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
+        //required: true
+    },
+    members: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        unique: true
+    }],
+    active: Boolean,
+    capacity: Number
+}, {timestamps: true});
 
 EventSchema.index({ loc: '2dsphere' });
 
 EventSchema.statics.findNearby = async function(coords, dist) {
-   return this.find({
-      loc: {
-         $near: {
-            $maxDistance: dist,
-            $geometry: {
-               type: "Point",
-               coordinates: [coords[0], coords[1]]
+    return this.find({
+        loc: {
+            $near: {
+                $maxDistance: dist,
+                $geometry: {
+                    type: "Point",
+                    coordinates: [coords[0], coords[1]]
+                }
             }
-         }
-      }
-   });
+        }
+    });
 };
 
 EventSchema.statics.findAll = async function() {
-   return Event.find({}).exec().then((event) => {
-      console.log(event);
-      return {events: event};
-   }).catch((err) => {
-      return err;
-   });
+    return Event.find({}).exec().then((event) => {
+        console.log(event);
+        return {events: event};
+    }).catch((err) => {
+        return err;
+    });
 }
 
 // Instantiate the User Model
