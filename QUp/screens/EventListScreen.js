@@ -66,6 +66,11 @@ export default class EventListScreen extends React.Component {
       });
   };
 
+  showMyEventDetails = (item) => {
+    AsyncStorage.setItem('eventData', JSON.stringify(item));
+    this.props.navigation.navigate('EventDetails', {item});
+  }
+
   renderSeparator = () => {
     return (
       <View
@@ -117,7 +122,7 @@ export default class EventListScreen extends React.Component {
               subtitle={`${item.location} at ${item.time}`}
               //subtitle={`By: ${item.userEmail}`}
               containerStyle={{ borderBottomWidth: 0 }}
-              onPress={ () => this.props.navigation.navigate('JoinEvent')}
+              onPress={ () => this.showMyEventDetails(item)}
             />
           )}
           keyExtractor={item => item._id}

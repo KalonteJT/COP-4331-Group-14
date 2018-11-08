@@ -40,6 +40,10 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: -1
   },
+  loadingStyle: {
+    position: 'absolute',
+    justifyContent: "flex-start"
+  }
 });
 
 export {styles}

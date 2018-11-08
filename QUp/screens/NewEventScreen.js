@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Alert, Platform, StyleSheet, View, Button, TouchableHighlight, AsyncStorage, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator, Modal, Alert, Platform, StyleSheet, View, Button, TouchableHighlight, AsyncStorage, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Input, Text } from 'react-native-elements';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import MapView from 'react-native-maps';
@@ -26,6 +26,7 @@ export default class NewEventScreen extends React.Component {
         longitude: 0,
       },
       userEmail: '',
+      cycler: false,
       isDatePickerVisible: false,
       isTimePickerVisible: false,
       modalVisible: false,
@@ -47,6 +48,8 @@ export default class NewEventScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
+
+  _showSpinner = () => {this.setState({cycler: true}); console.log("called this function" + JSON.stringify(this.state));};
 
   _showDatePicker = () => this.setState({ isDatePickerVisible: true });
 
@@ -97,9 +100,9 @@ export default class NewEventScreen extends React.Component {
   render(){
      return(
     
-          <View style={{justifyContent: 'center', flex: 1, height: 1,
+          <KeyboardAvoidingView style={{justifyContent: 'center', flex: 1, height: 1,
           width: "90%",
-          marginLeft: "5%",}}>
+          marginLeft: "5%",}} enabled>
             <FormLabel>Name</FormLabel>
             
             <FormInput placeholder="My Awesome Event" 
@@ -145,24 +148,33 @@ export default class NewEventScreen extends React.Component {
               
             <View style={styles.buttonStyle}>
 
-              <Button                 onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
+              <Button  onPress={() => {
+                  this._showSpinner();
+                  console.log(this.state);
                   Geocoder.from(this.state.eventCoord.latitude, this.state.eventCoord.longitude)
         .then(json => {
           var addressComponent = json.results[0].address_components;
             this.setState({eventString: addressComponent[1].short_name + ' \n' + addressComponent[2].short_name + ', '+ addressComponent[4].short_name})
             console.log(addressComponent);
+            this.setState({cycler: !this.state.cycler});
+            this.setModalVisible(!this.state.modalVisible);
+            
         })
         .catch(error => console.warn(error));
                 }} title="Set Location">
                
               </Button>
+              <ActivityIndicator size="large" color="#0020ff" animating={this.state.cycler}/>
+              
+              </View>
+              <View style={styles.loadingStyle}>
+              
               </View>
             </View>
           </View>
         </Modal>
             
-            <View style={{flex: 1, flexDirection: 'row'}}>
+            <View style={{flex: 1, flexDirection: 'row'}} enabled>
             <View style={{flex: 1}}>
             <FormLabel>Date</FormLabel>
             <TouchableOpacity onPress={this._showDatePicker}>
@@ -187,8 +199,8 @@ export default class NewEventScreen extends React.Component {
           mode="time"
         />
         </View>
-        
-          </View>
+        </View>
+          
           <View style={styles.buttonStyle} ><Button onPress={() => {
 
           this.createEvent()
@@ -199,8 +211,8 @@ export default class NewEventScreen extends React.Component {
       </View>
           
 
-    </View>
-          
+    
+          </KeyboardAvoidingView>
       
     )
   }

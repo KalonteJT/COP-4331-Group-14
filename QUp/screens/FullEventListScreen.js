@@ -68,12 +68,17 @@ import {saveUserId, getUserId} from '../utils/Storage';
         );
       };
     
+       goJoinEvent = (item) => {
+        AsyncStorage.setItem('eventData', JSON.stringify(item));
+        this.props.navigation.navigate('JoinEvent', {item});
+      }
+    
       render() {
         return (
             <FlatList
               data={this.state.data}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={ () => this.props.navigation.navigate('JoinEvent')}>
+                <TouchableOpacity onPress={ () => this.goJoinEvent(item)}>
                   <ListItem
                     title={`${item.name}`}
                     subtitle={`${item.location} at ${item.time}`}
