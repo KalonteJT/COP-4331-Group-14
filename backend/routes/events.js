@@ -85,6 +85,11 @@ exports.plugin = {
 
                 try {
                     const nevent = new Event(payload);
+                    
+                    if (nevent.loc.type == null) {
+                        nevent.loc.type = "Point";
+                    }
+                    
                     nevent.save();
                     return h.response(nevent).code(200);
                 } 
