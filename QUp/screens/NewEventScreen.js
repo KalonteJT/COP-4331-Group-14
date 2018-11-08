@@ -89,8 +89,9 @@ export default class NewEventScreen extends React.Component {
         body: JSON.stringify({
         name: this.state.eventName,
         time: this.state.eventTime,
-        location: this.state.eventLocation,
+        eventCoord: this.state.eventCoord,
         userEmail: result,
+        eventString: this.state.eventString,
         date: this.state.eventDate
       })
 

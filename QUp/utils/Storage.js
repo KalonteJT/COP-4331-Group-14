@@ -22,4 +22,25 @@ export const getUserId = async () => {
 }
 
 
+export const saveUserLatLon = async latlon => {
+  try {
+        await AsyncStorage.setItem('latlon', JSON.stringify(latlon));
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+};
+
+export const getUserLatLon = async () => {
+  let latlon = {};
+  try {
+    userLatLon = await AsyncStorage.getItem('latlon');
+  } catch (error) {
+    // Error retrieving data
+    console.log(error.message);
+  }
+  console.log('here it is ' + JSON.stringify(userLatLon));
+  return JSON.parse(userLatLon);
+}
+
 

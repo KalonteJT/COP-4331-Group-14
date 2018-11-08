@@ -2,7 +2,9 @@ import React from 'react';
 import { Platform, StyleSheet, View, Button, AsyncStorage, TouchableOpacity, TextInput  } from 'react-native';
 import {SearchBar, Input, List, ListItem, Text } from 'react-native-elements';
 import FlatList from "FlatList";
- import {styles } from '../styles/eventlistscreen';
+import Geocoder from 'react-native-geocoding';
+
+import {styles } from '../styles/eventlistscreen';
 import {saveUserId, getUserId} from '../utils/Storage';
  export default class FullEventListScreen extends React.Component {
      static navigationOptions = {
@@ -14,8 +16,10 @@ import {saveUserId, getUserId} from '../utils/Storage';
       }
      constructor(props) {
         super(props);
+
          this.state = {
         loading: false,
+        eventString: '',
         data: [],
         page: 1,
         seed: 1,
@@ -23,6 +27,7 @@ import {saveUserId, getUserId} from '../utils/Storage';
         refreshing: false,
         
         }
+        Geocoder.init('AIzaSyCRPspfu6DgUDUBOeqTFZMWG_CbnKHUzd8');
     }
      componentWillMount() {
         getUserId().then(this.makeRemoteRequest, (error) => {
@@ -49,10 +54,15 @@ import {saveUserId, getUserId} from '../utils/Storage';
               loading: false,
               refreshing: false
             });
+            console.log(res);
+            ;
+            
           })
           .catch(error=> {
             this.setState({ error, loading: false});
           });
+
+          console.log(JSON.stringify(this.state) + "here is state");
       };
     
       renderSeparator = () => {
@@ -81,7 +91,7 @@ import {saveUserId, getUserId} from '../utils/Storage';
                 <TouchableOpacity onPress={ () => this.goJoinEvent(item)}>
                   <ListItem
                     title={`${item.name}`}
-                    subtitle={`${item.location} at ${item.time}`}
+                    subtitle={`${item.eventString} at ${item.time}`}
                     //subtitle={`By: ${item.userEmail}`}
                     containerStyle={{ borderBottomWidth: 0 }}
                   />

@@ -8,8 +8,12 @@ import FlatList from "FlatList";
 import jwt_decode from 'jwt-decode';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import MapView from 'react-native-maps';
+import {Marker} from 'react-native-maps';
 import {styles } from '../styles/homescreen';
-import {saveUserId, getUserId} from '../utils/Storage';
+import {saveUserId, getUserId, saveUserLatLon, getUserLatLon} from '../utils/Storage';
+
+
+
 
 const auth0 = new Auth0({ domain: 'qup.auth0.com', clientId: '82KWV6LXAHtqkDcM2qNalg2HYe1Su0VH' });
 
@@ -49,6 +53,17 @@ export default class HomeScreen extends React.Component {
       })
 
     .catch(error => console.log(error));
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({userLat: position.coords.latitude, userLon: position.coords.longitude});
+        saveUserLatLon(position.coords);
+
+        console.log(position.coords.latitude + "here is lat!");
+      },
+      (error) => {console.log(error)}
+    );
+
   }
 
   render() {
