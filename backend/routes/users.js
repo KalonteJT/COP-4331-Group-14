@@ -1,78 +1,102 @@
 'use strict';
 
-var Event = require('../models/event.js').Event;
-var User = require('../models/user.js').User;
+var mongoose = require('mongoose');
+var User = require('mongoose').model('User');
+var Event = require('mongoose').model('Event');
 
 exports.plugin = {
-   name: 'routes-users',
-   version: '1.0.0',
-   register: async function(server, options) {
+    name: 'routes-users',
+    version: '1.0.0',
+    register: async function(server, options) {
+
+        // Routes
+        // ------------------
+        // GET
+        server.route({
+            method: 'GET',
+            path: '/users',
+            handler: async function (request,h)
+            {
+                // TODO: Validate Query
+                return User.find().limit(15).exec();
+            }
+        });
 
 
-      // Routes
-      // ------------------
-      // GET
-      server.route({
-         method: 'GET',
-         path: '/users',
-         handler: async function (request,h)
-         {
-            // TODO: Retrieve default users page... Bigger discussion? Login?
-            return "PSSSST Pretend I'm a list of users :3"; 
-         }
-      });
-
-      server.route({
-         method: 'GET',
-         path: '/users/{user}',
-         handler: async function (request,h)
-         {
-            //TODO: Retrieve user from DB
-            return "GET {user}: " + (encodeURIComponent(request.params.user));
-         }
-      });
+        // Routes
+        // ------------------
+        // PUT
+        server.route({
+            method: 'PUT',
+            path: '/users',
+            handler: async function (request,h)
+            {
+                // TODO: Validate
+                var payload = request.payload;
 
 
-      // Routes
-      // ------------------
-      // PUT
-      server.route({
-         method: 'PUT',
-         path: '/users',
-         handler: async function (request,h)
-         {
-            // TODO: Place user in DB if it does not exist. Err. Otherwise (username taken)
-            return "PUT {user}: " + encodeURIComponent(request.payload.user);
-         }
-      });
+                try {
+                    // if !validate(payload) return h.response('Nice Try fam..').code(400);
+                    const user = new User(payload);
+                    user.save();
+                    return h
+                        .response(user)
+                        .code(201);
+                }
+                catch (err) {
+                    console.error(err);
+                    return h.response("Unable to create user").code(400);
+                }
+            }
+        });
 
 
-      // Routes
-      // ------------------
-      // POST
-      server.route({
-         method: 'POST',
-         path: '/users',
-         handler:async function (request,h)
- 
-         {
-            // TODO: Update a users info in the DB
-            return "POST {user}: " + encodeURIComponent(request.payload.user);
-         }
-      });
+        // Routes
+        // ------------------
+        // POST
+        server.route({
+            method: 'POST',
+            path: '/users/{id}',
+            handler: async function (request,h)
+            {
+                // TODO: Validate
+                var payload = request.payload;
 
+                // if !validate(payload) return h.response('Nice Try fam..').code(400);
+                if (request.params.id) {
+                    return h
+                        .response(`No ID submitted.`)
+                        .code(401);
+                }
 
-      // Routes
-      // ------------------
-      // DELETE
-      server.route({
-         method: 'DELETE',
-         path: '/users',
-         handler: async function (request,h)
-         {
-            // TODO: Remove a user from the DB. Err if user DNE.
-            return "Umm.... Delete what?";
-         }
-      });
-   }
+                var user = User.findByIdAndUpdate(
+                    encodeURIComponent(request.params.id), 
+                    payload,
+                    (err) => {
+                        if (err) return h.response(err).code(400);
+                    });
+
+                return h
+                    .response(user)
+                    .code(201);
+            }
+        });
+
+        // Routes
+        // ------------------
+        // DELETE
+        server.route({
+            method: 'DELETE',
+            path: '/users',
+            handler: async function (request,h)
+            {
+                var params = request.params;
+
+                // TODO: Remove a user from the DB. Err if user DNE.
+                return User.deleteOne({ _id: params.id}, function (err) {
+                    if (err) return h.response(err).code(400);
+                })
+            }
+        });
+    }
 };
