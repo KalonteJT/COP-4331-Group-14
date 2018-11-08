@@ -30,16 +30,20 @@ exports.plugin = {
 
                 // Query based on distance
                 try {
-                    if (query.lon && query.lat && query.dist) {
+                    if (query.lon && query.lat) {
 
-                        if (query.dist > 50) {
-                            query.dist = 50;
+                        if (query.dist) {
+                            query.dist = 5;
                         }
                         else if (query.dist < 5) {
                             query.dist = 5;
                         }
+                        else if (query.dist > 50) {
+                            query.dist = 50;
+                        }
 
-                        return Event.findNearby([query.lon, query.lat], query.dist * 1609.34);
+                        return Event
+                            .findNearby([query.lon, query.lat], query.dist * 1609.34);
                     }
                     else {
                         return Event.find().limit(15).exec();
@@ -59,7 +63,10 @@ exports.plugin = {
             handler: async function (request,h)
             {
                 // todo: validate query
-                return Event.find({ _id: request.params.id}).populate('members').exec();
+                return Event
+                    .find({ _id: encodeURIComponent(request.params.id)})
+                    .populate({path: 'members', select: '_id name email createdAt updatedAt'})
+                    .exec();
             }
         });
 
