@@ -90,7 +90,7 @@ import {saveUserId, getUserId} from '../utils/Storage';
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={ () => this.goJoinEvent(item)}>
                   <ListItem
-                    title={`${item.name}`}
+                    title={`${item.name} - ${item.date}`}
                     subtitle={`${item.eventString} at ${item.time}`}
                     //subtitle={`By: ${item.userEmail}`}
                     containerStyle={{ borderBottomWidth: 0 }}

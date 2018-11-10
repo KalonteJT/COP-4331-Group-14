@@ -145,7 +145,7 @@ export default class NewEventScreen extends React.Component {
       description="fuckadescr"
     />
         </MapView>
-            <View>
+            <View style={{flex: 1}}>
               
             <View style={styles.buttonStyle}>
 

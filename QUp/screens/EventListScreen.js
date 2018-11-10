@@ -24,6 +24,7 @@ export default class EventListScreen extends React.Component {
     this.state = {
       loading: false,
       data: [],
+      eventString: '',
       page: 1,
       seed: 1,
       error: null,
@@ -118,8 +119,8 @@ export default class EventListScreen extends React.Component {
               		onPress={() => this.deleteEvent(item._id.$oid)}
               	/>
               }
-              title={`${item.name}`}
-              subtitle={`${item.location} at ${item.time}`}
+              title={`${item.name} - ${item.date}`}
+              subtitle={`${item.eventString} at ${item.time}`}
               //subtitle={`By: ${item.userEmail}`}
               containerStyle={{ borderBottomWidth: 0 }}
               onPress={ () => this.showMyEventDetails(item)}
