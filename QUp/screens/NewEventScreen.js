@@ -44,6 +44,27 @@ export default class NewEventScreen extends React.Component {
     );
 
   }
+  
+
+  static navigationOptions = ({navigation}) => {
+        return {
+          headerTitle: "New Event",
+          headerRight: (
+            <View style={styles.buttonStyle}>
+              <Button onPress={() => {navigation.state.params.create();
+                navigation.navigate('Home');
+              }}
+              title="Create"
+              color="#53575e"
+              />
+             </View>
+           ),
+        };
+      };
+
+      componentDidMount() {
+       this.props.navigation.setParams({create: this.createEvent.bind(this)})
+    }
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -61,7 +82,7 @@ export default class NewEventScreen extends React.Component {
 
   _handleDatePicked = (date) => {
     console.log('A date has been picked: ' + date);
-    let constructedDate = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`
+    let constructedDate = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
     this.setState({eventDate: constructedDate});
     this._hideDatePicker();
   };
@@ -92,7 +113,8 @@ export default class NewEventScreen extends React.Component {
         eventCoord: this.state.eventCoord,
         userEmail: result,
         eventString: this.state.eventString,
-        date: this.state.eventDate
+        date: this.state.eventDate,
+        eventMembers: [result]
       })
 
     })}).catch(error => console.log(error));
@@ -202,14 +224,7 @@ export default class NewEventScreen extends React.Component {
         </View>
         </View>
           
-          <View style={styles.buttonStyle} ><Button onPress={() => {
-
-          this.createEvent()
-          this.props.navigation.navigate('Home')}} 
-         title="Create Event!" 
-         color='#f49842'/>
           
-      </View>
           
 
     

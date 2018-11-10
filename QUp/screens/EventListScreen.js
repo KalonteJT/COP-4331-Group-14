@@ -23,6 +23,7 @@ export default class EventListScreen extends React.Component {
 
     this.state = {
       loading: false,
+      userEmail: '',
       data: [],
       eventString: '',
       page: 1,
@@ -47,7 +48,7 @@ export default class EventListScreen extends React.Component {
       var myDB = "qupdb";
       var myCollection = "Events";
       console.log(this.state);
-      var query = `{"${'userEmail'}":"${result}"}`;
+      var query = `{"${'eventMembers'}":"${result}"}`;
       var url = "https://api.mlab.com/api/1/databases/"+myDB+"/collections/"+myCollection+"?q="+query+"&apiKey="+apiKey;
       console.log(url);
     {/*const url = `http://104.248.112.100/events`;*/}
@@ -56,6 +57,7 @@ export default class EventListScreen extends React.Component {
       .then((res) => res.json())
       .then((res) => {
         this.setState ({
+          userEmail: result,
           data: res,
           error: res.error || null,
           loading: false,
@@ -105,19 +107,55 @@ export default class EventListScreen extends React.Component {
     this.forceUpdate();
   }
 
+  getMyEvents() {
+    let allEvents = this.state.data;
+    let myEvents = [];
+
+    for (var i = 0; i < allEvents.length; i++) {
+      if (allEvents[i].userEmail === this.state.userEmail) 
+        myEvents.push(allEvents[i]);
+      
+    }
+
+    console.log(myEvents);
+
+    return myEvents;
+  }
+    
+  getJoinedEvents() {
+    let allEvents = this.state.data;
+    let joinedEvents = [];
+
+    for (var i = 0; i < allEvents.length; i++) {
+      if (allEvents[i].userEmail != this.state.userEmail) 
+        joinedEvents.push(allEvents[i]);
+      
+    }
+
+    console.log(joinedEvents);
+
+    return joinedEvents;
+  }
+
   render() {
+    //printJoinedEvents();
+    let myEvents = this.getMyEvents();
+    let joinedEvents = this.getJoinedEvents();
+
+
     return (
-        <FlatList
-          data={this.state.data}
+      <View>
+      <FlatList
+          data={myEvents}
           renderItem={({ item }) => (
             <ListItem
               roundAvatar
               leftIcon={
-              	<Icon
-              		name='close'
-              		color='red'
-              		onPress={() => this.deleteEvent(item._id.$oid)}
-              	/>
+                <Icon
+                  name='close'
+                  color='red'
+                  onPress={() => this.deleteEvent(item._id.$oid)}
+                />
               }
               title={`${item.name} - ${item.date}`}
               subtitle={`${item.eventString} at ${item.time}`}
@@ -135,6 +173,38 @@ export default class EventListScreen extends React.Component {
           //onEndReached={this.handleLoadMore}
           onEndReachedThreshold={50}
         />
-    );
+        <FlatList
+          data={joinedEvents}
+          renderItem={({ item }) => (
+            <ListItem
+              roundAvatar
+              leftIcon={
+                <Icon
+                  name='check'
+                  color='green'
+                  
+                />
+
+              }
+
+              title={`${item.name} - ${item.date}`}
+              subtitle={`${item.eventString} at ${item.time}`}
+              //subtitle={`By: ${item.userEmail}`}
+              containerStyle={{ borderBottomWidth: 0 }}
+              onPress={ () => this.showMyEventDetails(item)}
+            />
+          )}
+          keyExtractor={item => item._id}
+          ItemSeparatorComponent={this.renderSeparator}
+          //ListHeaderComponent={this.renderHeader}
+          //ListFooterComponent={this.renderFooter}
+          //onRefresh={this.handleRefresh}
+          //refreshing={this.state.refreshing}
+          //onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={50}
+        />
+        </View>
+        )
   }
+  
 }

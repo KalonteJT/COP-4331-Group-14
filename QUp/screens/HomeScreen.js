@@ -49,20 +49,21 @@ export default class HomeScreen extends React.Component {
       saveUserId(idInformation.email)
       let kkl = getUserId();
       console.log('this is the user id' + kkl);
+      {/*navigator.geolocation.getCurrentPosition(
+            (position) => {
+              this.setState({userLat: position.coords.latitude, userLon: position.coords.longitude});
+              saveUserLatLon(position.coords);
+      
+              console.log(position.coords.latitude + "here is lat!");
+            },
+            (error) => {console.log(error)}
+          );*/}
      
       })
 
     .catch(error => console.log(error));
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({userLat: position.coords.latitude, userLon: position.coords.longitude});
-        saveUserLatLon(position.coords);
-
-        console.log(position.coords.latitude + "here is lat!");
-      },
-      (error) => {console.log(error)}
-    );
+    
 
   }
 

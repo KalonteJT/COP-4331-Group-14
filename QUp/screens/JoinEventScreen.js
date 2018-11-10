@@ -13,7 +13,7 @@ import {saveUserId, getUserId, getUserLatLon} from '../utils/Storage';
       constructor(props) {
         super(props);
       this.state= {
-
+        eventMembers: [],
         eventCoord: {
         latitude: 0,
         longitude: 0,
@@ -32,7 +32,7 @@ import {saveUserId, getUserId, getUserLatLon} from '../utils/Storage';
           headerTitle: "Event Details",
           headerRight: (
             <View style={styles.buttonStyle}>
-              <Button onPress={() => navigation.navigate('EventList')}
+              <Button onPress={() => {navigation.state.params.join()}}
               title="Join Event!"
               color="#53575e"
               />
@@ -40,6 +40,48 @@ import {saveUserId, getUserId, getUserLatLon} from '../utils/Storage';
           ),
         };
       };
+
+      componentDidMount() {
+       this.props.navigation.setParams({join: this.joinEvent.bind(this)})
+    }
+
+     joinEvent() {
+      const {params} = this.props.navigation.state;
+      var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
+      var myDB = "qupdb";
+      var myCollection = "Events";
+      var eventId = params.item._id.$oid;
+      var url = "https://api.mlab.com/api/1/databases/"+myDB+"/collections/"+myCollection+"?q={_id:{$oid:'"+eventId+"'}}&apiKey="+apiKey
+      console.log(url);
+       fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        let arr = res[0].eventMembers;
+        console.log(arr);
+
+        getUserId().then((result) => {
+          let userSet = new Set(arr);
+          userSet.add(result);
+          
+          fetch(url ,{
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: res[0].name,
+              time: res[0].time,
+              eventCoord: res[0].eventCoord,
+              userEmail: res[0].userEmail,
+              eventString: res[0].eventString,
+              date: res[0].date,
+              eventMembers: userSet
+          })           
+        })
+      })
+    })}
      
      render() {
          const {params} = this.props.navigation.state;
