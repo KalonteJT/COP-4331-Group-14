@@ -51,8 +51,9 @@ export default class NewEventScreen extends React.Component {
           headerTitle: "New Event",
           headerRight: (
             <View style={styles.buttonStyle}>
-              <Button onPress={() => {navigation.state.params.create();
-                navigation.navigate('Home');
+              <Button onPress={() => {
+                if (navigation.state.params.create())
+                  navigation.navigate('Home');
               }}
               title="Create"
               color="#53575e"
@@ -96,6 +97,13 @@ export default class NewEventScreen extends React.Component {
   };
 
   createEvent(){
+
+    if (this.state.eventName === '' || this.state.eventString === '' || this.state.eventDate === 'Choose Date' || this.state.eventTime === 'Choose Time'){
+      alert('Please fill out all fields before continuing');
+      return false;
+    }
+
+
     var apiKey = "6q0GvT04E_mFKH1XqLKO31Sw_6bw0i_Y";
       var myDB = "qupdb";
       var myCollection = "Events";
@@ -118,6 +126,8 @@ export default class NewEventScreen extends React.Component {
       })
 
     })}).catch(error => console.log(error));
+
+      return true;
   }
 
   render(){
