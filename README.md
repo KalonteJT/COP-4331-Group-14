@@ -59,7 +59,7 @@ when you want, hang with your friends, or mix it up.
 The Design
 -----------------------------
 
-[UML Class Diagram](https://www.lucidchart.com/invitations/accept/f043aba4-1715-4362-81d3-f67197795195)         
+[UML Class Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Class%20Diagram.pdf)         
 [UML Component Diagram](https://www.lucidchart.com/invitations/accept/a9c976f5-3fdb-4f47-b8e8-f646c9076a8c)</br>
-[UML Screens Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Screen%20Diagram.pdf)
+[UML Screens Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Component%20Diagram.pdf)
 
