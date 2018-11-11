@@ -61,9 +61,10 @@ import {saveUserId, getUserId, getUserLatLon} from '../utils/Storage';
         console.log(arr);
 
         getUserId().then((result) => {
-          let userSet = new Set(arr);
-          userSet.add(result);
-          
+          arr.push(result);
+          userSet = new Set(arr);
+          console.log(Array.from(userSet));
+          let goodStuff = Array.from(userSet);
           fetch(url ,{
             method: 'PUT',
             headers: {
@@ -77,11 +78,14 @@ import {saveUserId, getUserId, getUserLatLon} from '../utils/Storage';
               userEmail: res[0].userEmail,
               eventString: res[0].eventString,
               date: res[0].date,
-              eventMembers: userSet
+              eventMembers: goodStuff
           })           
         })
       })
-    })}
+    })
+
+
+    }
      
      render() {
          const {params} = this.props.navigation.state;
