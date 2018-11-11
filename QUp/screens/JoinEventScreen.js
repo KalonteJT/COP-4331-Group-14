@@ -82,6 +82,8 @@ import {saveUserId, getUserId, getUserLatLon} from '../utils/Storage';
           })           
         })
       })
+
+        this.props.navigation.navigate('FullEventList');
     })
 
 
