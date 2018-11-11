@@ -18,8 +18,8 @@ export default class NewEventScreen extends React.Component {
       eventName:'',
       eventTime: 'Choose Time',
       eventDate: 'Choose Date',
-      userLat: '',
-      userLon: '',
+      userLat: 0,
+      userLon: 0,
       eventString: 'Choose Location', 
       eventCoord: {
         latitude: 0,
