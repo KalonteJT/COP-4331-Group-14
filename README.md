@@ -60,6 +60,6 @@ The Design
 -----------------------------
 
 [UML Class Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Class%20Diagram.pdf)         
-[UML Component Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Component%20Diagram.pdf)</br>
+[UML Component Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Component%20Diagram%20(1).pdf)</br>
 [UML Screens Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Component%20Diagram.pdf)
 
