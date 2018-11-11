@@ -7,30 +7,30 @@ const pointSchema = require('./point').pointSchema;
 // Defines the basic User Schema as stored in the DB
 var EventSchema = new Schema({
     name: { 
-        type: String, 
+        type: String,
         required: true
     },
     desc: { 
         type: String, 
-        required: true
     },
     loc: {
         type: pointSchema,
-        required: true
+        required: true 
     },
     owner: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User'
-        //required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        index: true
     },
     members: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
         unique: true
     }],
-    active: Boolean,
-    capacity: Number
-}, {timestamps: true});
+    eventString: String,
+    time: String,
+    date: String
+}, {collection: 'Events'});
 
 EventSchema.index({ loc: '2dsphere' });
 

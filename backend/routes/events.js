@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 
 var mongoose = require('mongoose');
 var User = require('mongoose').model('User');
@@ -22,7 +22,7 @@ exports.plugin = {
         // GET
         server.route({
             method: 'GET',
-            path: '/events',
+            path: '/events/near',
             handler: async (request,h) =>
             {
                 // TODO: Validate Query
@@ -32,7 +32,7 @@ exports.plugin = {
                 try {
                     if (query.lon && query.lat) {
 
-                        if (query.dist) {
+                        if (query.dist === null) {
                             query.dist = 5;
                         }
                         else if (query.dist < 5) {
@@ -59,14 +59,26 @@ exports.plugin = {
 
         server.route({
             method: 'GET',
-            path: '/events/{id}',
+            path: '/events',
             handler: async function (request,h)
             {
+                var query = request.query;
+                if (query.id !== null) {
+
                 // todo: validate query
                 return Event
-                    .find({ _id: encodeURIComponent(request.params.id)})
-                    .populate({path: 'members', select: '_id name email createdAt updatedAt'})
+                    .find({ '_id': encodeURIComponent(request.query.id)})
+                    .populate({path: 'members', select: '_id name email time date eventString'})
                     .exec();
+                }
+                else if (query.owner !== null) {
+                 // todo: validate query
+                return Event
+                    .find({ 'owner': encodeURIComponent(query.owner)})
+                    .populate({path: 'members', select: '_id name email time date eventString'})
+                    .exec();
+
+                }
             }
         });
 
@@ -85,8 +97,12 @@ exports.plugin = {
 
                 try {
                     const nevent = new Event(payload);
+
+                    if (nevent.loc.coordinates === null) {
+                        return h.response('no coordinates fam').code(400);
+                    }
                     
-                    if (nevent.loc.type == null) {
+                    if (nevent.loc.type === null) {
                         nevent.loc.type = "Point";
                     }
                     
@@ -220,7 +236,7 @@ exports.plugin = {
                     });
 
                 return h
-                    .response(`Successfully removed event: ${encodeURIComponent(event.name)}`)
+                    .response(true)
                     .code(203);
             }   
         });
