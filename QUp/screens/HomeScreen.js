@@ -175,7 +175,7 @@ export default class HomeScreen extends React.Component {
               />
             ))}
   </MapView>
-      <Button onPress={this.Rerender} title="Update Map"/>
+      
       
       </View> 
     
