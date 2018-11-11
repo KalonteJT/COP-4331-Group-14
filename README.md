@@ -60,6 +60,6 @@ The Design
 -----------------------------
 
 [UML Class Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Class%20Diagram.pdf)         
-[UML Component Diagram](https://www.lucidchart.com/invitations/accept/a9c976f5-3fdb-4f47-b8e8-f646c9076a8c)</br>
+[UML Component Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Component%20Diagram.pdf)</br>
 [UML Screens Diagram](https://github.com/KalonteJT/COP-4331-Group-14/blob/master/docs/Component%20Diagram.pdf)
 
