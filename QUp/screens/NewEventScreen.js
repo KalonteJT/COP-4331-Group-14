@@ -53,6 +53,7 @@ export default class NewEventScreen extends React.Component {
             <View style={styles.buttonStyle}>
               <Button onPress={() => {
                 if (navigation.state.params.create())
+                  
                   navigation.navigate('Home');
               }}
               title="Create"
