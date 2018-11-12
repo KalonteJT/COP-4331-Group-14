@@ -62,27 +62,87 @@
 2. This will prompt you to login to your account.
 3. Enter your login credentials in the username and password fields
 
+## Test ID #8: Access the API
+1. Using postman, curl, a browser, program and hit the following urls.
+    * Events: [GET]
+        - https://104.248.112.100/events?id=[event_id]
+        - https://104.248.112.100/events/near?lon=[longitude]&lat=[latitude]&dist=[distance in miles]
+        - https://104.248.112.100/events?owner=[user_id]
+    * Events: [PUT]
+        - https://104.248.112.100/events/[event_id]
+        Body: 
+        ```json
+        {
+            "name" : "[event name]",
+            "eventString" : "[description]",
+            "time" : "[a time]",
+            "members" : "[array of user ids]",
+            "date" : "[a date]",
+            "owner" : "[user id]",
+            "loc" : {
+                coordinates: [longitude, latitude]
+            },
+        }
+        ```
+
+    * Events: [POST]
+        - https://104.248.112.100/events/[event_id]
+        Body: [alter any field]
+        ```json
+        {
+            "eventString" : "[new description]",
+        }
+        ```
+    * Users: [GET]
+        - https://104.248.112.100/users?id=[user_id]
+        - https://104.248.112.100/users?email=[email]
+    * Users: [PUT]
+        - https://104.248.112.100/users?id=[user_id]
+        - https://104.248.112.100/users?email=[email]
+        Body:
+        ```json
+        {
+            "name" : {
+                "first": "first name",
+                "last": "last name"
+            },
+            email: "[email]",
+            status: "[status]",
+        }
+        ```
+    * Users: [POST]
+        - https://104.248.112.100/users?id=[user_id]
+        - https://104.248.112.100/users?id=[email]
+        Body: [alter any field]
+        ```json
+        {
+            status: "[status]", 
+        }
+        ```
+
 ## Test Matrix
 
-.|Test ID|1|2|3|4|5|6|7
----|---|---|---|---|---|---|---|---
+.|Test ID|1|2|3|4|5|6|7|8
+---|---|---|---|---|---|---|---|---|---
 User Story ID||||||||
-1|||||||X|
-5|||||||X, Satisfied by creating an account through Auth0.|
-6|X|||||||
-7|X|||||||
-8|X|||||||
-9||X||||X|
-10||||||X|
-14|||||||X|
-15||||||||X
-16||||||||X
-17||X||||X||
-19||||||||X
-20|||X|||||
-21||||||X||
-22|||||X|||
-23||X||||X||X
-24||||||||X
-25||||||X||X
-26|X|||||||
+1 | | | | | | |X| |
+5 | | | | | | |X, Satisfied by creating an account through Auth0.| |
+6 |X| | | | | | | |
+7 |X| | | | | | | |
+8 |X| | | | | | | |X
+9 | |X| | | |X| | |
+10| | | | | |X| | |
+12| | | | | | | | |X
+13| | | | | | | | |X
+14| | | | | | |X| |
+15| | | | | | | |X|
+16| | | | | | | |X|
+17| |X| | | |X| | |
+19| | | | | | | |X|
+20| | | X | | | | |
+21| | | | | |X| | |X
+22| | | | |X| | | |
+23| |X| | | |X| |X|
+24| | | | | | | |X|
+25| | | | | |X| |X|
+26|X| | | | | | | |
