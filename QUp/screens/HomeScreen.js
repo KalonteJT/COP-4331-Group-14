@@ -29,8 +29,8 @@ export default class HomeScreen extends React.Component {
           longitude: -122.4324
         }, 
       }],
-      userLat: 0,
-      userLon: 0,
+      userLat: 37.78825,
+      userLon: -122.4324,
       loading: false,
       userEmail: '',
       data: [],
