@@ -80,7 +80,7 @@
             "date" : "[a date]",
             "owner" : "[user id]",
             "loc" : {
-                coordinates: [longitude, latitude]
+                "coordinates": ["longitude as float", "latitude as float"]
             },
         }
         ```
@@ -106,8 +106,8 @@
                 "first": "first name",
                 "last": "last name"
             },
-            email: "[email]",
-            status: "[status]",
+            "email": "[email]",
+            "status": "[status]",
         }
         ```
     * Users: [POST]
@@ -116,7 +116,7 @@
         Body: [alter any field]
         ```json
         {
-            status: "[status]", 
+            "status": "[status]", 
         }
         ```
 
